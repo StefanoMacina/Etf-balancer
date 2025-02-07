@@ -11,13 +11,13 @@ export class CalcContainer extends HTMLElement {
 
   template = () => {
     return /*html*/ `
-            <section class="border border-primary w-75 vh-100  mx-auto my-2 ">
+            <section class=" border rounded-4   w-75 vh-100  mx-auto my-2 "  style="--bs-border-opacity: .5">
               <div class="row h-100 g-0">
-                <div class="col-4 border border-secondary">
-                COL-1
+                <div class="col-4  ">
+                  <calc-sidebar></calc-sidebar>
                 </div>
-                <div class="col-8 border border-secondary">
-                COL-2
+                <div class="col-8 border-start">
+                  <calc-main></calc-main>   
                 </div>
               </div>
             </section>
