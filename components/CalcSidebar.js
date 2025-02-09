@@ -1,5 +1,6 @@
 import './ReusableModal.js';
 
+
 export class CalcSidebar extends HTMLElement {
   constructor() {
     super();
@@ -8,44 +9,47 @@ export class CalcSidebar extends HTMLElement {
   connectedCallback() {
     this.innerHTML = this.template().trim();
 
-    // Get a reference to the reusable modal component.
-    const modal = this.querySelector('reusable-modal');
+    const tbody = this.querySelector('#main-table-body');
+    const modal1 = this.querySelector('#myModal');
+    const addETFButton = this.querySelector('button#add-etf-btn');
 
-    // Get the button that should trigger the modal.
-    // (Note: remove any Bootstrap data attributes if you plan to handle it manually.)
-    const addETFButton = this.querySelector('button.add-etf-btn');
-    if (addETFButton && modal) {
-      addETFButton.addEventListener('click', () => {
-        modal.open();
-      });
-    }
+    addETFButton.addEventListener('click', () => {
+      modal1.open();
+    });
 
-    // Set up the save callback for the modal.
-    if (modal) {
-      modal.onSave = (e) => {
-        console.log("Save action triggered in CalcSidebar", e);
-        // Put your custom save logic here (e.g., form validation, data submission, etc.)
-        
-        // Optionally, close the modal after saving.
-        modal.close();
-      };
-    }
+    modal1.onSave = (e) => {
+      const etfName = modal1.querySelector('#etf-name').value;
+      const etfTarget = modal1.querySelector('#etf-target').value;
+      const etfCurrent = modal1.querySelector('#etf-current').value;
+    
+      console.log(etfName, etfTarget, etfCurrent);
+
+      modal1.close();
+    };
+    
+    
   }
 
   template = () => {
     return /*html*/`
       <div class="container p-4">
-        <input-group title="Current PAC value" icon="$"></input-group>
-        <input-group title="Increment" icon="$"></input-group>
-        <!-- Note: we removed data attributes so we can handle the modal manually -->
-        <button type="button" class="btn btn-primary btn-md rounded-3 d-block mx-auto add-etf-btn">
+        <input-component id="pac-value" title="Current PAC value" icon="$"></input-component>
+        <input-component id="increment" title="Increment" icon="$"></input-component>
+
+        <button type="button" id="add-etf-btn" class="btn btn-primary btn-md rounded-3 d-block mx-auto add-etf-btn">
           ADD ETF
         </button>
       </div>
-      <!-- Include the reusable modal component -->
-      <reusable-modal id="myModal" title="My Custom Modal">
-        <p>TCustomize it as needed.</p>
+     
+      <reusable-modal id="myModal" title="New ETF" save-text="Add">
+        <form>
+          <input-component layout="grouped" title="ETF" id="etf-name" p-holder="name or ISIN"></input-component>
+          <input-component layout="grouped" title="Target" type="number" id="etf-target" p-holder="desired percent allocation"></input-component>
+          <input-component layout="grouped" title="ETF qty" type="number" id="etf-current" p-holder="current quantity in portfolio"></input-component>
+        </form>
       </reusable-modal>
+
+
     `;
   }
 }

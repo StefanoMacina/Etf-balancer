@@ -8,5 +8,5 @@ import { ReusableModal } from "./components/ReusableModal.js";
 customElements.define("calc-container", CalcContainer);
 customElements.define("calc-sidebar", CalcSidebar);
 customElements.define("calc-main", CalcMain);   
-customElements.define("input-group", InputComponent);
+customElements.define("input-component", InputComponent);
 customElements.define('reusable-modal', ReusableModal);

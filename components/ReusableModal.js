@@ -1,4 +1,3 @@
-// ReusableModal.js
 export class ReusableModal extends HTMLElement {
   constructor() {
     super();
@@ -6,18 +5,14 @@ export class ReusableModal extends HTMLElement {
   }
 
   connectedCallback() {
-    // Render modal HTML structure
     this.render();
 
-    // Initialize Bootstrap's Modal for the rendered element
     const modalElement = this.querySelector('.modal');
     this.modalInstance = new bootstrap.Modal(modalElement);
 
-    // Attach click handler for the "Save changes" button
     const saveButton = this.querySelector('.save-button');
     if (saveButton) {
       saveButton.addEventListener('click', (e) => {
-        // If a save callback has been provided, call it.
         if (typeof this.onSave === 'function') {
           this.onSave(e);
         }
@@ -26,10 +21,11 @@ export class ReusableModal extends HTMLElement {
   }
 
   render() {
-    const modalId = this.getAttribute('id') || 'reusableModal';
-    const title = this.getAttribute('title') || 'Modal Title';
+    const closetext = this.getAttribute('close-text') || 'Close';
+    const saveText = this.getAttribute('save-Text') || 'Save';
+    const modalId = this.getAttribute('id') ;
+    const title = this.getAttribute('title')
     
-    // Set the modal structure while preserving the original content
     this.innerHTML = /*html*/`
       <div class="modal fade" id="${modalId}" tabindex="-1" aria-labelledby="${modalId}-label" aria-hidden="true">
         <div class="modal-dialog">
@@ -42,8 +38,8 @@ export class ReusableModal extends HTMLElement {
               ${this.content}
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary save-button">Save changes</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">${closetext}</button>
+              <button type="button" class="btn btn-primary save-button">${saveText}</button>
             </div>
           </div>
         </div>
@@ -51,17 +47,17 @@ export class ReusableModal extends HTMLElement {
     `;
 }
 
-  // Public method to open the modal.
+  
   open() {
     this.modalInstance.show();
   }
 
-  // Public method to close the modal.
+  
   close() {
     this.modalInstance.hide();
   }
 
-  // Define a property for the save callback.
+  
   set onSave(callback) {
     this._onSave = callback;
   }
@@ -71,7 +67,7 @@ export class ReusableModal extends HTMLElement {
   }
 }
 
-// Define the custom element.
+
 
 
 
