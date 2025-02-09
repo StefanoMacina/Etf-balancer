@@ -52,7 +52,9 @@ export default class InputComponent extends HTMLElement {
           <input type="${this.type}" class="form-control" id="${this.id}" placeholder="">
           <label for="${this.id}">${this.title}</label>
         </div>
-        <span class="input-group-text">${this.icon}</span>
+        <span class="input-group-text">
+          <i class="${this.icon}"></i>
+        </span>
       </div>
     `;
   }

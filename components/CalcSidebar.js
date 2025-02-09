@@ -18,23 +18,41 @@ export class CalcSidebar extends HTMLElement {
     });
 
     modal1.onSave = (e) => {
-      const etfName = modal1.querySelector('#etf-name').value;
-      const etfTarget = modal1.querySelector('#etf-target').value;
-      const etfCurrent = modal1.querySelector('#etf-current').value;
-    
-      console.log(etfName, etfTarget, etfCurrent);
-
-      modal1.close();
+      this.handleSave();
     };
-    
-    
   }
+
+  handleSave() {
+    const etfName = this.querySelector("#etf-name")?.value;
+    const etfTarget = this.querySelector("#etf-target")?.value;
+    const etfCurrent = this.querySelector("#etf-current")?.value;
+
+    if (!etfName || !etfTarget || !etfCurrent) {
+      alert("Please fill all fields");
+      return;
+    }
+
+    const etfData = {
+      id: Date.now(),
+      name: etfName,
+      target: etfTarget,
+      current: etfCurrent
+    };
+
+    this.dispatchEvent(new CustomEvent("add-etf", { 
+      detail: etfData, 
+      bubbles: true 
+    }));
+
+    this.modal1.close();
+  }
+
 
   template = () => {
     return /*html*/`
       <div class="container p-4">
-        <input-component id="pac-value" title="Current PAC value" icon="$"></input-component>
-        <input-component id="increment" title="Increment" icon="$"></input-component>
+        <input-component id="pac-value" title="Current PAC value" icon="bi bi-bank2"></input-component>
+        <input-component id="increment" title="Increment" icon="bi bi-cash-coin"></input-component>
 
         <button type="button" id="add-etf-btn" class="btn btn-primary btn-md rounded-3 d-block mx-auto add-etf-btn">
           ADD ETF
