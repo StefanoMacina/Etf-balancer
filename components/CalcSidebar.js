@@ -9,15 +9,14 @@ export class CalcSidebar extends HTMLElement {
   connectedCallback() {
     this.innerHTML = this.template().trim();
 
-    const tbody = this.querySelector('#main-table-body');
-    const modal1 = this.querySelector('#myModal');
+    this.modal1 = this.querySelector('#myModal');
     const addETFButton = this.querySelector('button#add-etf-btn');
 
     addETFButton.addEventListener('click', () => {
-      modal1.open();
+      this.modal1.open();
     });
 
-    modal1.onSave = (e) => {
+    this.modal1.onSave = (e) => {
       this.handleSave();
     };
   }
@@ -44,6 +43,7 @@ export class CalcSidebar extends HTMLElement {
       bubbles: true 
     }));
 
+    console.log("evennt dispatched " + JSON.stringify(etfData));
     this.modal1.close();
   }
 
