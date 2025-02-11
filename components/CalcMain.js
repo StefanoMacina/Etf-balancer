@@ -55,6 +55,12 @@ export class CalcMain extends HTMLElement {
     this.portfolio.etfs = this.portfolio.etfs.filter(etf => etf.id !== etfId);
     
     localStorage.setItem("portfolio", JSON.stringify(this.portfolio));
+    const updatedList = JSON.parse(localStorage.getItem('portfolio')).etfs;
+
+    document.dispatchEvent(new CustomEvent('etf-list-updated', {
+      detail: updatedList,
+      bubbles: true
+    }))
   }
   
 

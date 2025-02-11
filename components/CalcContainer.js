@@ -23,6 +23,7 @@ export class CalcContainer extends HTMLElement {
     `;
   };
 
+
   addEventListeners() {
     this.addEventListener("add-etf", (event) => {
       const calcMain = this.querySelector("calc-main");
@@ -30,5 +31,11 @@ export class CalcContainer extends HTMLElement {
         calcMain.addRow(event.detail);
       }
     });
+
+    this.addEventListener("start-calc", e => {
+      console.log(e.detail)
+    })
+
+
   }
 }
