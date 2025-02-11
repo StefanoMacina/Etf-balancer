@@ -97,12 +97,16 @@ export class CalcSidebar extends HTMLElement {
     return etfName && etfTarget && etfCurrent && pacValue && increment;
   }
 
-  createEtfData({ etfName, etfTarget, etfCurrent }) {
+  createEtfData({ etfName, etfTarget, etfCurrent, pacValue, increment }) {
     return {
       id: Date.now(),
       name: etfName,
       target: etfTarget,
       current: etfCurrent,
+      portfolio: {
+        pacValue: pacValue,
+        increment: increment,
+      }
     };
   }
 

@@ -2,7 +2,10 @@ export class CalcMain extends HTMLElement {
   constructor() {
     super();
     const storedPortfolio = localStorage.getItem("portfolio");
-    this.portfolio = storedPortfolio ? JSON.parse(storedPortfolio) : { etfs: [] };
+    this.portfolio = storedPortfolio ? JSON.parse(storedPortfolio) : { 
+      etfs: [], 
+      funds: { pacValue: 0, increment: 0 } 
+    };
   }
 
   connectedCallback() {
@@ -18,11 +21,24 @@ export class CalcMain extends HTMLElement {
         this.removeRow(e);
       }
     });
+
+    // Add listener for start-calc event
+    document.addEventListener("start-calc", (e) => {
+      this.updateFunds(e.detail);
+    });
+  }
+
+  updateFunds(fundsData) {
+    this.portfolio.funds = {
+      pacValue: fundsData.pfValue,
+      increment: fundsData.increment
+    };
+    localStorage.setItem("portfolio", JSON.stringify(this.portfolio));
   }
 
   addRow(etfData, saveToStorage = true) {
     if (!this.tbody) return;
-
+    
     const row = document.createElement("tr");
     row.innerHTML = /*html*/`
       <td hidden>${etfData.id}</td>
@@ -30,16 +46,22 @@ export class CalcMain extends HTMLElement {
       <td>${etfData.target}%</td>
       <td>${etfData.current}</td>
       <td>
-        <button  class="btn delete-row btn-danger btn-sm remove-btn">
+        <button class="btn delete-row btn-danger btn-sm remove-btn">
           <i class="bi bi-dash-circle"></i>
         </button>
       </td>
     `;
-
     this.tbody.appendChild(row);
 
     if (saveToStorage) {
-      this.portfolio.etfs.push(etfData);
+      // Only update ETFs array, don't touch funds
+      this.portfolio.etfs.push({
+        id: etfData.id,
+        name: etfData.name,
+        target: etfData.target,
+        current: etfData.current
+      });
+      
       localStorage.setItem("portfolio", JSON.stringify(this.portfolio));
     }
   }
@@ -47,20 +69,18 @@ export class CalcMain extends HTMLElement {
   removeRow(e) {
     const row = e.target.closest("tr");
     const etfId = Number(row.cells[0].textContent);
-    console.log(etfId)
     row.remove();
-    
+   
     this.portfolio.etfs = this.portfolio.etfs.filter(etf => etf.id !== etfId);
-    
     localStorage.setItem("portfolio", JSON.stringify(this.portfolio));
+    
     const updatedList = JSON.parse(localStorage.getItem('portfolio')).etfs;
-
     document.dispatchEvent(new CustomEvent('etf-list-updated', {
       detail: updatedList,
       bubbles: true
-    }))
+    }));
   }
-  
+ 
   template = () => {
     return /*html*/ `
       <div id="main-content" class="container p-4">

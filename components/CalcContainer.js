@@ -33,19 +33,18 @@ export class CalcContainer extends HTMLElement {
             <calc-main></calc-main>   
           </div>
         </div>
-
       </section>
 
       <template id="calc-template">
-      <div id="calc-section" class="border rounded-4 row g-0 mt-3">
-        <div class="col-6">
-          tab1
+        <div id="calc-section" class="border rounded-4 row g-0 mt-3">
+          <div class="col-6">
+            tab1
+          </div>
+          <div class="col-6 border-start">
+            tab2
+          </div>
         </div>
-        <div class="col-6 border-start">
-          tab2
-        </div>
-      </div>
-    </template>
+      </template>
     `;
   };
 
