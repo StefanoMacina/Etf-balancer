@@ -4,13 +4,16 @@ export class CalcSidebar extends HTMLElement {
   constructor() {
     super();
     this.elements = {};
+        
   }
 
   connectedCallback() {
     this.innerHTML = this.template().trim();
     this.initializeElements();
     this.initializeEventListeners();
-    this.checkInitialState();
+    customElements.whenDefined('input-component').then(() => {
+      this.checkInitialState();
+    });
   }
 
   initializeElements() {
@@ -50,6 +53,13 @@ export class CalcSidebar extends HTMLElement {
     if (savedPortfolio) {
       const portfolio = JSON.parse(savedPortfolio);
 
+      if (portfolio.funds?.pacValue) {
+        this.elements.pacValue.value = portfolio.funds.pacValue;
+      }
+      
+      if (portfolio.funds?.increment) {
+        this.elements.increment.value = portfolio.funds.increment;
+      }
       if (
         portfolio.etfs &&
         Array.isArray(portfolio.etfs) &&

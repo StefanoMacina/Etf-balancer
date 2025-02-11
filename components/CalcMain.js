@@ -21,8 +21,7 @@ export class CalcMain extends HTMLElement {
         this.removeRow(e);
       }
     });
-
-    // Add listener for start-calc event
+    
     document.addEventListener("start-calc", (e) => {
       this.updateFunds(e.detail);
     });
