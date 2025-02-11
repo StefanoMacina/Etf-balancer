@@ -11,6 +11,8 @@ export default class InputComponent extends HTMLElement {
     this.layout = this.getAttribute("layout") || "floating";
     this.placeholder = this.getAttribute("p-holder");
     this.mb = this.getAttribute("mb") || "3";
+    this.colLabel = this.getAttribute("col-label") || "2";
+    this.colInput = this.getAttribute("col-input") || "10";
 
     this.innerHTML = this.template().trim();
   }
@@ -37,8 +39,8 @@ export default class InputComponent extends HTMLElement {
   get groupedLayout() {
     return /*html*/ `
       <div class="form-group row mb-${this.mb}">
-        <label for="${this.id}" class="col-sm-2 col-form-label">${this.title}</label>
-        <div class="col-sm-10">
+        <label for="${this.id}" class="col-${this.colLabel} col-form-label">${this.title}</label>
+        <div class="col-${this.colInput}">
           <input type="${this.type}" class="form-control" id="${this.id}" placeholder="${this.placeholder}">
         </div>
       </div>

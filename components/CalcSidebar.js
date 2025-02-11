@@ -54,16 +54,21 @@ export class CalcSidebar extends HTMLElement {
         <input-component id="pac-value" title="Current PAC value" icon="bi bi-bank2"></input-component>
         <input-component id="increment" title="Increment" icon="bi bi-cash-coin"></input-component>
 
-        <button type="button" id="add-etf-btn" class="btn btn-primary btn-md rounded-3 d-block mx-auto add-etf-btn">
-          ADD ETF
-        </button>
+        <div class="d-flex gap-2 mt-3">
+          <button type="button" id="add-etf-btn" class="btn btn-primary btn-md rounded-3  mx-auto add-etf-btn">
+            ADD ETF
+          </button>
+          <button type="button" id="calc-allocation" class="btn btn-warning btn-md rounded-3  mx-auto">
+            Calculate
+          </button>
+        </div>
       </div>
      
       <reusable-modal id="myModal" title="New ETF" save-text="Add">
         <form>
-          <input-component layout="grouped" title="ETF" id="etf-name" p-holder="name or ISIN"></input-component>
-          <input-component layout="grouped" title="Target" type="number" id="etf-target" p-holder="desired percent allocation"></input-component>
-          <input-component layout="grouped" title="ETF qty" type="number" id="etf-current" p-holder="current quantity in portfolio"></input-component>
+          <input-component layout="grouped" title="ETF Name" id="etf-name" p-holder="name or ISIN" col-label="4" col-input="8" ></input-component>
+          <input-component layout="grouped" title="Portofolio Target" type="number" id="etf-target" col-label="4" col-input="8"  p-holder="desired percent allocation"></input-component>
+          <input-component layout="grouped" title="Current Quantity" type="number" id="etf-current" col-label="4" col-input="8"  p-holder="current quantity in portfolio"></input-component>
         </form>
       </reusable-modal>
 
