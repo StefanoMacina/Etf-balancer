@@ -65,15 +65,13 @@ export class CalcContainer extends HTMLElement {
 
   createCalcComponent(e){
     const oldComponent = this.querySelector('#calc-section')
-    
-    if(oldComponent)oldComponent.remove();
-
+    if(oldComponent) oldComponent.remove();
     const template = this.elements.template;
     const clone = template.content.cloneNode(true);
     this.elements.container.appendChild(clone);
-    
     console.log(e.detail);
-    
+
+
   
   }
 }

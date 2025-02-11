@@ -9,7 +9,6 @@ export class CalcMain extends HTMLElement {
     this.innerHTML = this.template().trim();
     this.tbody = this.querySelector("#main-table-body");
     this.portfolio.etfs.forEach(etf => this.addRow(etf, false));
-
     this.addEventListeners();
   }
 
@@ -20,7 +19,6 @@ export class CalcMain extends HTMLElement {
       }
     });
   }
-  
 
   addRow(etfData, saveToStorage = true) {
     if (!this.tbody) return;
@@ -63,8 +61,6 @@ export class CalcMain extends HTMLElement {
     }))
   }
   
-
-
   template = () => {
     return /*html*/ `
       <div id="main-content" class="container p-4">

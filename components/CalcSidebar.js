@@ -70,14 +70,14 @@ export class CalcSidebar extends HTMLElement {
   }
 
   handleSave() {
-    const formData = this.getDOMdata();
-
-    if (!this.validateFormData(formData)) {
+    const domData = this.getDOMdata();
+    
+    if (!this.validateFormData(domData)) {
       alert("Please fill all fields");
       return;
     }
 
-    const etfData = this.createEtfData(formData);
+    const etfData = this.createEtfData(domData);
     this.dispatchAddEtfEvent(etfData);
     this.elements.calcButton.hidden = false;
     this.elements.modal.close();
@@ -93,8 +93,8 @@ export class CalcSidebar extends HTMLElement {
     };
   }
 
-  validateFormData({ etfName, etfTarget, etfCurrent }) {
-    return etfName && etfTarget && etfCurrent;
+  validateFormData({ etfName, etfTarget, etfCurrent, pacValue, increment }) {
+    return etfName && etfTarget && etfCurrent && pacValue && increment;
   }
 
   createEtfData({ etfName, etfTarget, etfCurrent }) {
