@@ -36,11 +36,11 @@ export class CalcContainer extends HTMLElement {
       </section>
 
       <template id="calc-template">
-        <div id="calc-section" class="border rounded-4 row g-0 mt-3">
+        <div id="calc-section" class=" rounded-4 row g-0 mt-3">
           <div class="col-6">
-            tab1
+            <current-allocation></current-allocation>
           </div>
-          <div class="col-6 border-start">
+          <div class="col-6">
             tab2
           </div>
         </div>
