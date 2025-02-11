@@ -61,7 +61,7 @@ export class CalcSidebar extends HTMLElement {
   }
 
   startCalc() {
-    const {pacValue, increment } = this.getFormData();
+    const {pacValue, increment } = this.getDOMdata();
     const data = {
       pfValue: pacValue,
       increment: increment
@@ -70,7 +70,7 @@ export class CalcSidebar extends HTMLElement {
   }
 
   handleSave() {
-    const formData = this.getFormData();
+    const formData = this.getDOMdata();
 
     if (!this.validateFormData(formData)) {
       alert("Please fill all fields");
@@ -83,7 +83,7 @@ export class CalcSidebar extends HTMLElement {
     this.elements.modal.close();
   }
 
-  getFormData() {
+  getDOMdata() {
     return {
       pacValue: this.elements.pacValue?.value, // Fuori dalla modale
       increment: this.elements.increment?.value, // Fuori dalla modale
