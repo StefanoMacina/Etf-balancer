@@ -1,4 +1,3 @@
-import e from "express";
 import { BaseComponent } from "./BaseComponent";
 
 export class CalcComponent extends BaseComponent {
