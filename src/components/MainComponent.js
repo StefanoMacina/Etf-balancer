@@ -6,6 +6,7 @@ export class MainComponent extends BaseComponent{
         return /*html*/`
             <section class="container border border-primary">
                 <calc-component></calc-component>
+                <output-component></output-component>
             </section>
         `;
     }

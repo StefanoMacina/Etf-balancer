@@ -1,3 +1,4 @@
+import e from "express";
 import { BaseComponent } from "./BaseComponent";
 
 export class CalcComponent extends BaseComponent {
@@ -27,7 +28,7 @@ export class CalcComponent extends BaseComponent {
 
     getActionListener(){
         this.saveButton = this.querySelector("#saveNewETF");
-        this.getDataBtn = this.querySelector("#getDataBtn");
+        this.actionBtn = this.querySelector("#actionBtn");
         this.calcBtn = this.querySelector("#calcAllocation");
         this.tBody = this.querySelector("#table-body");
         this.modal = new bootstrap.Modal(this.querySelector('#addETFmodal'));
@@ -35,7 +36,7 @@ export class CalcComponent extends BaseComponent {
 
     addEventListeners(){
         this.saveButton.addEventListener("click", () => this.onPressSave());
-        this.getDataBtn.addEventListener("click", () => this.showDatas());
+        this.actionBtn.addEventListener("click", () => this.checkAllocation(10));
         this.calcBtn.addEventListener("click", () => this.onPressCalculate());
         
         this.querySelector('#addETFmodal').addEventListener('hidden.bs.modal', () => {
@@ -82,7 +83,7 @@ export class CalcComponent extends BaseComponent {
                     background-color: rgba(0, 0, 0, 0.05);
                 }
             </style>
-            <section class="row g-0 m-4 rounded-4" style="border: 1px solid rgba(146, 155, 163, 0.24);">
+            
                 <aside class="col-4 p-4">
                     <input-component id="pac-value" title="Current PAC value" icon="bi bi-bank2"></input-component>
                     <input-component id="increment" title="Increment" icon="bi bi-cash-coin"></input-component>
@@ -91,7 +92,7 @@ export class CalcComponent extends BaseComponent {
                         <button type="button" class="btn btn-primary btn-md rounded-3  mx-auto " data-bs-toggle="modal" data-bs-target="#addETFmodal">
                                 ADD ETF
                         </button>
-                        <button type="button" id="getDataBtn" class="btn btn-primary btn-md rounded-3  mx-auto">
+                        <button type="button" id="actionBtn" class="btn btn-primary btn-md rounded-3  mx-auto">
                                 btn
                         </button>
                         <button type="button" id="calcAllocation" class="btn btn-warning btn-md rounded-3  mx-auto">
@@ -112,7 +113,6 @@ export class CalcComponent extends BaseComponent {
                         <tbody id="table-body"></tbody>
                     </table>
                 </main>
-            </section>
 
             <div class="modal fade" id="addETFmodal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -191,6 +191,15 @@ export class CalcComponent extends BaseComponent {
     onPressCalculate(){
         const inputData = this.getInputDatas();
         this.pfService.updatePortfolio(inputData);
+    }
+
+    checkAllocation(nextAllocationETF){
+        let sum = this.pfService.getPortfolioData().etfs.reduce((sum, etf) => sum + Number(etf.target), 0) + nextAllocationETF;
+        if(sum > 100){
+            alert("Allocation exceeds 100%");
+            return false;
+        }
+        
     }
 
     getInputDatas(){

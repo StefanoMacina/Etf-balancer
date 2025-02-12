@@ -11,7 +11,11 @@ export class BaseComponent extends HTMLElement {
     }
     
     render() {
-        this.innerHTML = this.getTemplate();
+        this.innerHTML =` 
+        <section class="row g-0 m-4 rounded-4" style="border: 1px solid rgba(146, 155, 163, 0.24);">
+            ${this.getTemplate()}
+        </section>
+        `;
     }
 
     getTemplate() {

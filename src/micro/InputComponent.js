@@ -1,14 +1,11 @@
-import { BaseComponent } from "../components/BaseComponent";
-
-
-export default class InputComponent extends BaseComponent {
+export default class InputComponent extends HTMLElement {
     constructor() {
         super();
     }
 
     connectedCallback() {
         this.initializeProperties();
-        super.connectedCallback();
+        this.innerHTML = this.getTemplate()
     }
 
     initializeProperties() {
